@@ -1,0 +1,41 @@
+<form [formGroup]="createProductFormGroup" (ngSubmit)="onSubmit()">
+
+    <div>
+        <label for="productName">Product Name: </label>
+        <input id="productName" type="text" formControlName="productName" required>
+    </div>
+
+    <div>
+        <label for="productDescription">Product Description: </label>
+        <input id="productDescription" type="text" formControlName="productDescription" required>
+    </div>
+
+    <div>
+        <label for="units">Units: </label>
+        <input id="units" type="text" formControlName="units" required>
+    </div>
+
+    <div>
+        <label for="quantity">Quantity: </label>
+        <input id="quantity" type="number" formControlName="quantity" required>
+    </div>
+
+    <div>
+        <label for="supplierId">Supplier Name: </label>
+        <select id="supplierId" formControlName="supplierId">
+            <option [value]="supplier.emailId" *ngFor="let supplier of suppliers; let i = index">{{supplier.firstName +
+                " " + supplier.lastName}}</option>
+        </select>
+    </div>
+
+    <div>
+        <label for="perUnitPrice">Unit Price: </label>
+        <input id="perUnitPrice" type="text" formControlName="perUnitPrice">
+    </div>
+
+
+    <button type="submit" class="btn btn-primary" [disabled]="!createProductFormGroup.valid">Submit</button>
+
+
+
+</form>

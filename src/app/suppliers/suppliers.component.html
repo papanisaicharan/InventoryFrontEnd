@@ -1,0 +1,34 @@
+
+<div class="container">
+  <div class="row">
+    
+    <div class="col-sm-8">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Email Id</th>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>location</th>
+            <th>phone Number</th>
+            <!-- <th>Edit</th> -->
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let supplier of suppliers;let i = index ">
+            <td>{{supplier.emailId}}</td>
+            <td>{{supplier.firstName}}</td>
+            <td>{{supplier.lastName}}</td>
+            <td>{{supplier.location}}</td>
+            <td>{{supplier.phoneNumber}}</td>
+            <!-- <td><button class="btn btn-danger" (click)="editSupplier(supplier)">Edit</button></td> -->
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-sm-4">
+      <app-create-supplier></app-create-supplier>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,36 @@
+
+
+<div class="container">
+    <div class="row">
+      
+      <div class="col-sm-8">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Email Id</th>
+              <th>First name</th>
+              <th>Last name</th>
+              <th>location</th>
+              <th>phone Number</th>
+              <!-- <th>Edit</th> -->
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let distributor of distributors;let i = index ">
+              <td>{{distributor.emailId}}</td>
+              <td>{{distributor.firstName}}</td>
+              <td>{{distributor.lastName}}</td>
+              <td>{{distributor.location}}</td>
+              <td>{{distributor.phoneNumber}}</td>
+              <!-- <td><button class="btn btn-danger" (click)="editSupplier(supplier)">Edit</button></td> -->
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-sm-4">
+        <app-create-distributor></app-create-distributor>
+      </div>
+    </div>
+  </div>
+  
+  

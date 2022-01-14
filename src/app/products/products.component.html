@@ -1,0 +1,36 @@
+
+<div class="container">
+    <div class="row">
+      <div class="col-sm-8">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Product Name</th>
+              <th>Product Description</th>
+              <th>Units</th>
+              <th>Quantity</th>
+              <th>Supplier Id</th>
+              <th>Unit Price</th>
+              <!-- <th>Edit</th> -->
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let product of products;let i = index ">
+              <td>{{product.productName}}</td>
+              <td>{{product.productDescription}}</td>
+              <td>{{product.units}}</td>
+              <td>{{product.quantity}}</td>
+              <td>{{product.supplierId}}</td>
+              <td>{{product.perUnitPrice}}</td>
+              <!-- <td><button class="btn btn-danger" (click)="editSupplier(supplier)">Edit</button></td> -->
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-sm-4">
+        <app-create-products></app-create-products>
+      </div>
+    </div>
+  </div>
+  
+  
