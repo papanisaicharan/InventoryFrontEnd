@@ -1,1 +1,56 @@
-<p>create-orders works!</p>
+<h2 style="text-align: center;"><b>Create Order</b></h2>
+<form [formGroup]="createOrderFormGroup" (ngSubmit)="onSubmit()">
+
+    <div class="row">
+        <label class="col-sm-4" for="productName">ProductName Name: </label>
+        <select class="col-sm-8" id="productName" formControlName="productName">
+            <option [value]="product.productName" *ngFor="let product of products; let i = index">
+                {{product.productName}}</option>
+        </select>
+    </div>
+
+    <div class="row">
+        <label class="col-sm-4" for="productId">Product Id: </label>
+        <input class="col-sm-8" id="productId" type="text" formControlName="productId" readonly>
+    </div>
+
+    <div class="row">
+        <p *ngIf="productQuantity" class="col-sm-12"><b>In stock: {{productQuantity}}</b></p>
+    </div>
+
+    <div class="row">
+        <label class="col-sm-4" for="quantity">Quantity: </label>
+        <input class="col-sm-8" id="quantity" type="number" formControlName="quantity" required min="1" [max]="productQuantity">
+    </div>
+
+    <div class="row">
+        <label class="col-sm-4" for="totalPrice">Total Price: </label>
+        <input class="col-sm-8" id="totalPrice" type="text" formControlName="totalPrice" required readonly>
+    </div>
+
+
+    <div class="row">
+        <label class="col-sm-4" for="distributorName">distributor Name: </label>
+        <select class="col-sm-8" id="distributorName" formControlName="distributorName">
+            <option [value]="distributor.firstName +' ' +distributor.lastName"
+                *ngFor="let distributor of distributors; let i = index">{{distributor.firstName +" "
+                +distributor.lastName}}</option>
+        </select>
+    </div>
+
+    <div class="row">
+        <label class="col-sm-4" for="distributorId">Distributor Id: </label>
+        <input class="col-sm-8" id="distributorId" type="text" formControlName="distributorId" required readonly>
+    </div>
+
+    <div class="row">
+        <label class="col-sm-4" for="deliveryAddress">Delivery Address: </label>
+        <input class="col-sm-8" id="deliveryAddress" type="text" formControlName="deliveryAddress" required>
+    </div>
+
+    <div style="text-align: center;width: 100%; margin-top: 10px;">
+        <button type="submit"  style="width: 50%;" class="btn btn-primary" [disabled]="!createOrderFormGroup.valid">Submit</button>
+    </div>
+
+
+</form>

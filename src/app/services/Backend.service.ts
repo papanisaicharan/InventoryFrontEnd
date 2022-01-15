@@ -41,11 +41,11 @@ export class BackEndServices{
 
     // orders
     getOrders(){
-        return this.http.get<Order[]>('http://127.0.0.1:3000/Orders');
+        return this.http.get<Order[]>('http://127.0.0.1:3000/orders');
     }
 
     createOrder(order: Order){
-        return this.http.post<Order>('http://127.0.0.1:3000/Order/create', order);
+        return this.http.post<Order>('http://127.0.0.1:3000/order/create', order);
     }
     
 }

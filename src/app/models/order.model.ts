@@ -1,5 +1,3 @@
-
-
 export interface Order {
     orderId: string;
     productName: string;

@@ -24,7 +24,6 @@ export class ProductsComponent implements OnInit {
     this.backendService.getProducts().subscribe((products: Product[]) => {
       this.products = products;
       this.productService.setProducts(products);
-      console.log(this.products);
     });
   }
 

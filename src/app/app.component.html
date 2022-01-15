@@ -1,9 +1,12 @@
 <app-header-component class="header"></app-header-component>
 
-<button type="button" class="btn btn-primary" [routerLink]="['/suppliers']">Suppliers</button>
-<button type="button" class="btn btn-primary" [routerLink]="['/distributors']">Distributors</button>
-<button type="button" class="btn btn-primary" [routerLink]="['/products']">Products</button>
-<button type="button" class="btn btn-primary" [routerLink]="['/orders']">Orders</button>
+<div class="links flex-row">
+    <button type="button" class="btn btn-primary" [routerLink]="['/suppliers']">Suppliers</button>
+    <button type="button" class="btn btn-primary" [routerLink]="['/distributors']">Distributors</button>
+    <button type="button" class="btn btn-primary" [routerLink]="['/products']">Products</button>
+    <button type="button" class="btn btn-primary" [routerLink]="['/orders']">Orders</button>
+</div>
+
 
 <div class=" main">
   <router-outlet></router-outlet>

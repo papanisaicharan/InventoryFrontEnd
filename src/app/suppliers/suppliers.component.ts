@@ -25,7 +25,6 @@ export class SuppliersComponent implements OnInit {
     this.backendService.getSuppliers().subscribe((suppliers: Supplier[]) => {
       this.suppliers = suppliers;
       this.supplierService.setSuppliers(suppliers);
-      console.log(this.suppliers);
     });
   }
 

@@ -1,7 +1,8 @@
 
-<div class="container">
+<div class="grid-box">
     <div class="row">
       <div class="col-sm-8">
+        <h2 style="text-align: center;"><b>Products Info</b></h2>
         <table class="table">
           <thead>
             <tr>
@@ -26,6 +27,9 @@
             </tr>
           </tbody>
         </table>
+        <div *ngIf="products.length == 0" style="text-align: center;height: 100px; vertical-align: middle;">
+          <p>No records..!</p>
+        </div>
       </div>
       <div class="col-sm-4">
         <app-create-products></app-create-products>
