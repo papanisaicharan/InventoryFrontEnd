@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Distributor } from 'src/app/models/distributor.model';
 import { Product } from 'src/app/models/product.model';
 import { BackEndServices } from 'src/app/services/Backend.service';
@@ -20,7 +20,7 @@ export class CreateOrdersComponent implements OnInit {
   product: any;
   distributor: any;
   
-  constructor(private route: ActivatedRoute, private distributorService: DistributorService,
+  constructor(private route: ActivatedRoute, private router: Router, private distributorService: DistributorService,
     private backendService: BackEndServices, private productService: ProductService, private orderService: OrderService) {
       this.createOrderFormGroup = new FormGroup({
         orderId: new FormControl(null, []),
@@ -102,6 +102,7 @@ export class CreateOrdersComponent implements OnInit {
     this.backendService.createOrder(this.createOrderFormGroup.value).subscribe({
       next: response => {
         console.log(response);
+        this.router.navigateByUrl('/orders');
       },
       error: error => {
         console.log(error);
