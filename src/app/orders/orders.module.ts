@@ -4,13 +4,15 @@ import { OrdersComponent } from '../orders/orders.component';
 import { CreateOrdersComponent } from './create-orders/create-orders.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { OrdersRoutingModule } from './orders-routing.module';
+import { UpdateOrdersComponent } from './update-orders/update-orders.component';
 
 
 
 @NgModule({
   declarations: [
     OrdersComponent,
-    CreateOrdersComponent
+    CreateOrdersComponent,
+    UpdateOrdersComponent
   ],
   imports: [
     CommonModule,

@@ -26,6 +26,10 @@ export class BackEndServices{
         return this.http.get<Distributor[]>('http://127.0.0.1:3000/distributors');
     }
 
+    getDistributorById(distributorId: String){
+        return this.http.get<Distributor>('http://127.0.0.1:3000/distributor/'+distributorId);
+    }
+
     createDistributor(distributor: Distributor){
         return this.http.post<Distributor>('http://127.0.0.1:3000/distributor/create', distributor);
     }
@@ -33,6 +37,10 @@ export class BackEndServices{
     // products
     getProducts(){
         return this.http.get<Product[]>('http://127.0.0.1:3000/products');
+    }
+
+    getProductById( productId: String){
+        return this.http.get<Product[]>('http://127.0.0.1:3000/product/'+productId);
     }
 
     createProduct(product: Product){
@@ -46,6 +54,14 @@ export class BackEndServices{
 
     createOrder(order: Order){
         return this.http.post<Order>('http://127.0.0.1:3000/order/create', order);
+    }
+
+    updateOrder(order: Order){
+        return this.http.put<Order>('http://127.0.0.1:3000/order/update', order);
+    }
+
+    deleteOrder(orderId: String){
+        return this.http.post<null>('http://127.0.0.1:3000/order/delete/'+orderId, null);
     }
     
 }

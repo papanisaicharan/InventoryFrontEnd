@@ -1,0 +1,50 @@
+<div class="container">
+    <h2 style="text-align: center;"><b>Edit Order</b></h2>
+    <form [formGroup]="updateOrderFormGroup" (ngSubmit)="onSubmit()">
+    
+        <div class="row">
+            <label class="col-sm-4" for="productName">Product Name: </label>
+            <input class="col-sm-8" id="productName" type="text" formControlName="productName" readonly>
+        </div>
+    
+        <div class="row">
+            <p *ngIf="product" class="col-sm-12"><b>In stock: {{product.quantity}}</b></p>
+        </div>
+    
+        <div class="row">
+            <label class="col-sm-4" for="quantity">Quantity: </label>
+            <input class="col-sm-8" id="quantity" type="number" formControlName="quantity" required min="1">
+        </div>
+    
+        <div class="row">
+            <label class="col-sm-4" for="totalPrice">Total Price: </label>
+            <input class="col-sm-8" id="totalPrice" type="text" formControlName="totalPrice" required readonly>
+        </div>
+    
+    
+        <div class="row">
+            <label class="col-sm-4" for="distributorId">Distributor Name: </label>
+            <select class="col-sm-8" id="distributorId" formControlName="distributorId">
+                <option [value]="distributor.emailId"
+                    *ngFor="let distributor of distributors; let i = index">{{distributor.firstName +" "
+                    +distributor.lastName}}</option>
+            </select>
+        </div>
+    
+        <!-- <div class="row">
+            <label class="col-sm-4" for="distributorId">Distributor Id: </label>
+            <input class="col-sm-8" id="distributorId" type="text" formControlName="distributorId" required readonly>
+        </div> -->
+    
+        <div class="row">
+            <label class="col-sm-4" for="deliveryAddress">Delivery Address: </label>
+            <input class="col-sm-8" id="deliveryAddress" type="text" formControlName="deliveryAddress" required>
+        </div>
+    
+        <div style="text-align: center;width: 100%; margin-top: 10px;">
+            <button type="submit"  style="width: 50%;" class="btn btn-primary" [disabled]="!updateOrderFormGroup.valid">Submit</button>
+        </div>
+    
+    
+    </form>
+</div>

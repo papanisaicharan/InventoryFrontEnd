@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Distributor } from 'src/app/models/distributor.model';
@@ -14,34 +14,43 @@ import { ProductService } from 'src/app/services/product.service';
   styleUrls: ['./create-orders.component.scss']
 })
 export class CreateOrdersComponent implements OnInit {
-
   createOrderFormGroup: FormGroup;
-  distributors: Distributor[] = [];
   products: Product[] = [];
-  productPrice: number = 0;
-  productQuantity: number = 0;
+  distributors: Distributor[] = [];
+  product: any;
+  distributor: any;
   
   constructor(private route: ActivatedRoute, private distributorService: DistributorService,
     private backendService: BackEndServices, private productService: ProductService, private orderService: OrderService) {
       this.createOrderFormGroup = new FormGroup({
-        productName: new FormControl('', [Validators.required]),
+        orderId: new FormControl(null, []),
+        productName: new FormControl('', []),
         productId: new FormControl('', [Validators.required]),
-        totalPrice: new FormControl('', [Validators.required]),
+        totalPrice: new FormControl(0, [Validators.required]),
+        orderedOn: new FormControl(null, []),
         quantity: new FormControl('', [Validators.required]),
-        distributorName: new FormControl('', [Validators.required]),
+        distributorName: new FormControl('', []),
         distributorId: new FormControl('', [Validators.required]),
         deliveryAddress: new FormControl('', [Validators.required])
       });
-     }
+      this.getProducts();
+      this.getDistributors();
+    }
 
-  ngOnInit(): void {
-
-    this.backendService.getProducts().subscribe(products => {
-      this.products = products;
-    });
+  getDistributors() {
     this.backendService.getDistributors().subscribe(distributors => {
       this.distributors = distributors;
     })
+  }
+
+  getProducts(){
+    this.backendService.getProducts().subscribe(products => {
+      this.products = products;
+    });
+  }
+  
+  ngOnInit(): void {
+    // listening for change
     this.productService.productsChange.subscribe(products => {
       this.products = products;
     });
@@ -49,56 +58,54 @@ export class CreateOrdersComponent implements OnInit {
       this.distributors = distributors;
     });
 
-    this.createOrderFormGroup.get('productName')?.valueChanges.subscribe(productName => {
-      const product = this.products.filter(product => product.productName == productName)[0];
-      this.createOrderFormGroup.patchValue({
-        'productId': product.productId
-      });
-      this.productPrice = product.perUnitPrice;
-      this.productQuantity = product.quantity;
-      if(this.createOrderFormGroup.get('quantity')?.value != ''){
-        this.createOrderFormGroup?.patchValue({
-          'totalPrice': parseInt(this.createOrderFormGroup.get('quantity')?.value) * this.productPrice
-        })
-      }else{
-        this.createOrderFormGroup?.patchValue({
-          'totalPrice': this.productPrice,
-          'quantity': 1
-        });
-      }
-      console.log(this.createOrderFormGroup.value);
+    // if there is any change in the productName change the unit price and in stock quantity
+    this.createOrderFormGroup.get('productId')?.valueChanges.subscribe(productId => {
+      this.backendService.getProductById(productId).subscribe({
+        next: product => {
+          this.product = product;
+          this.createOrderFormGroup.patchValue({
+            'productName': this.product.productName,
+            'quantity': 1,
+            'totalPrice': this.product.perUnitPrice
+          })
+        },
+        error: error => {
+          console.log(error);
+        }
+      })
     });
 
     this.createOrderFormGroup.get('quantity')?.valueChanges.subscribe(quantity => {
-      this.createOrderFormGroup.patchValue({
-        'totalPrice': parseInt(this.createOrderFormGroup.get('quantity')?.value) * this.productPrice
-      })
+        this.createOrderFormGroup.patchValue({
+          'totalPrice': parseInt(this.createOrderFormGroup.get('quantity')?.value) * this.product.perUnitPrice
+        })
     });
 
-    this.createOrderFormGroup.get('distributorName')?.valueChanges.subscribe(name => {
-      const distributor = this.distributors.filter(distributor => distributor.firstName +" " +distributor.lastName == name)[0];
-      this.createOrderFormGroup.patchValue({
-        'distributorId': distributor.emailId
-      })
+    this.createOrderFormGroup.get('distributorId')?.valueChanges.subscribe({
+      next: distributorId => {
+        this.backendService.getDistributorById(distributorId).subscribe(distributor => {
+          this.distributor = distributor;
+          this.createOrderFormGroup.patchValue({
+            'distributorName': distributor.firstName + " " + distributor.lastName
+          });
+        });
+      },
+      error: error =>{
+        console.log(error);
+      }
     });
   }
 
+
   onSubmit(){
+    console.log(this.createOrderFormGroup.value);
     this.backendService.createOrder(this.createOrderFormGroup.value).subscribe({
       next: response => {
-        this.getOrders();
+        console.log(response);
       },
       error: error => {
         console.log(error);
       }
-      
-    });
-  }
-
-  getOrders(){
-    this.backendService.getOrders().subscribe(orders => {
-      this.orderService.setOrders(orders);
     })
   }
-
 }

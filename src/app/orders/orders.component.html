@@ -1,38 +1,51 @@
+<div class="container">
+  <div class="row">
+    <div style="text-align: center;width: 100%;">
+      <h2 style="text-align: center;">
+        <b>Orders Info
+          <button type="button" [routerLink]="['/order/create']" style="float: right;margin-bottom: 5px;">
+            Create
+          </button>
+        </b>
+      </h2>
 
-<div class="grid-box">
-    <div class="row">
-      <div class="col-sm-8">
-        <h2 style="text-align: center;"><b>Orders Info</b></h2>
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Product Name</th>
-              <th>Total Price</th>
-              <th>Ordered On</th>
-              <th>Quantity</th>
-              <th>Distributor Name</th>
-              <th>Delivery Address</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let order of orders;let i = index ">
-              <td>{{order.productName}}</td>
-              <td>{{order.totalPrice}}</td>
-              <td>{{order.orderedOn}}</td>
-              <td>{{order.quantity}}</td>
-              <td>{{order.distributorName}}</td>
-              <td>{{order.deliveryAddress}}</td>
-            </tr>
-          </tbody>
-        </table>
-        <div *ngIf="orders.length == 0" style="text-align: center;height: 100px; vertical-align: middle;">
-          <p>No records..!</p>
-        </div>
-      </div>
-      <div class="col-sm-4">
-        <app-create-orders></app-create-orders>
+      <table class="table" style="width: 100%;">
+        <thead>
+          <tr>
+            <th>Product Name</th>
+            <th>Total Price</th>
+            <th>Ordered On</th>
+            <th>Quantity</th>
+            <th>Distributor Name</th>
+            <th>Delivery Address</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let order of orders;let i = index ">
+            <td>{{order.productName}}</td>
+            <td>{{order.totalPrice}}</td>
+            <td>{{order.orderedOn}}</td>
+            <td>{{order.quantity}}</td>
+            <td>{{order.distributorName}}</td>
+            <td>{{order.deliveryAddress}}</td>
+            <td>
+              <button type="button" (click)="onEdit(order)">
+                edit
+              </button>
+            </td>
+            <td>
+              <button type="button" (click)="onDelete(order)">
+                Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div *ngIf="orders.length == 0" style="text-align: center;height: 100px; vertical-align: middle;">
+        <p>No records..!</p>
       </div>
     </div>
   </div>
-  
-  
+</div>
