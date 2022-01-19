@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, throwError } from 'rxjs';
 import { Distributor } from '../models/distributor.model';
+import { FilterResponse } from '../models/filterResponse.model';
 import { Order } from '../models/order.model';
 import { Product } from '../models/product.model';
 import { Supplier } from '../models/supplier.model';
@@ -48,8 +49,8 @@ export class BackEndServices{
     }
 
     // orders
-    getOrders(){
-        return this.http.get<Order[]>('http://127.0.0.1:3000/orders');
+    getOrders(searchTerm: String){
+        return this.http.get<FilterResponse>('http://127.0.0.1:3000/orders?searchTerm='+searchTerm);
     }
 
     createOrder(order: Order){

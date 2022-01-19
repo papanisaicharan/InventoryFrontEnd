@@ -8,6 +8,14 @@
           </button>
         </b>
       </h2>
+      <div class="form-outline mb-4">
+        <form [formGroup]="searchFormGroup">
+          <input type="search" class="form-control" id="datatable-search-input"
+           placeholder="Search for data" formControlName="searchControl">
+        </form>
+        <label class="form-label-left">Result: {{result}}</label>
+        <label class="form-label-right">Total: {{total}}</label>
+      </div>
 
       <table class="table" style="width: 100%;">
         <thead>
