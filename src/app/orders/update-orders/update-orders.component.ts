@@ -37,6 +37,8 @@ export class UpdateOrdersComponent implements OnInit {
           distributorId: new FormControl(this.order.distributorId, [Validators.required]),
           deliveryAddress: new FormControl(this.order.deliveryAddress, [Validators.required])
         });
+    }else{
+      this.router.navigateByUrl('/orders');
     }
     
     this.getProduct();
@@ -46,6 +48,18 @@ export class UpdateOrdersComponent implements OnInit {
   getProduct(){
     this.backendService.getProductById(this.order.productId).subscribe(product => {
       this.product = product;
+    })
+  }
+
+  getOrders(){
+    this.backendService.getOrders("").subscribe({
+      next: response => {
+        this.orderService.setOrders(response.orders);
+
+      },
+      error:  error => {
+        console.log(error);
+      }
     })
   }
 
